@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				font-family: "微软雅黑";
+			}
+			.hide{
+				display: none;
+			}
+			canvas{
+				border: 1px solid red;
+				display: block;
+				margin: 0 auto;
+				background-position: 0 0;
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+				
+			}
+			.cover{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0,0,0,0.4);
+			}
+			.cover p{
+				text-align: center;
+			}
+			.btn{
+				width: 800px;
+				margin: 0 auto;
+				padding-top: 10px;
+			}
+			.btn p{
+				padding-bottom: 10px;
+			}
+			a{
+				text-decoration: none;
+				color: #000;
+			}
+			button{
+				line-height: 30px;
+				padding: 0 10px;
+				cursor: pointer;
+				border-radius: 4px;
+				background: #449d44;
+				color: #fff;
+				border: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="btn">
+			<p>
+				<button id="saveBtn">保存数据</button>
+				<button id="getDataBtn">导入数据</button>
+				<button id="seeBtn" οnclick="seeData(true)">查看数据</button>
+				<a href="preview.html" target="_blank"><button>预览效果</button></a>
+			</p>
+			<p>
+				<input type="file" name="imgload" id="imgload" value="上传图片" />
+			</p>
+			<p>
+				<button οnclick="reduo()">撤销</button>
+				<button οnclick="clearAll()">清除</button>
+			</p>
+			<p>
+				基础宽度:<input type="text" name="width" id="width" value="800" />
+			</p>
+			<p>
+				基础高度:<input type="text" name="width" id="height" value="600" />
+			</p>
+		</div>
+		<canvas id="canvas" width="800" height="600"></canvas>
+		<div class="cover hide">
+			<p>
+				<span>url地址:</span>
+				<input type="text" name="" id="urlAddress" value="" />
+			</p>
+			<p>
+				<span>描述:</span>
+				<input type="text" name="dec" id="dec" value="" />
+			</p>
+			<p>
+				<button class="contain">确认</button>
+			</p>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+</html>

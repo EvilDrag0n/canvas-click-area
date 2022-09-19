@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			body,html{
+				width: 100%;
+				height: 100%;
+			}
+			canvas{
+				background-position: 0 0;
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+				width: 100%;
+				height: 100%;
+			}
+			.wrap{
+				border: 1px solid red;
+				margin: 0 auto;
+				width: 800px;
+				height: 600px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<canvas id="canvas" ></canvas>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+	<script type="text/javascript">
+	
+		var $canvas = $('#canvas');
+		var canvas = $canvas[0];	
+		
+		var data = JSON.parse(localStorage.getItem("data"));
+		var ctx = canvas.getContext('2d');
+			ctx.lineWidth = 1; 
+			ctx.strokeStyle="rgba(0,0,0,0)";
+		var module = data.module;		
+		var rateWidth = $canvas.width()/data.baseWidth; 
+		var rateHeight = $canvas.height()/data.baseHeight;
+		var base64Data = 'url(' + data.img + ')';
+		$canvas.css({'background-image': base64Data});
+		
+		console.log(rateWidth);
+		console.log(rateHeight);
+		
+		console.log(canvas.getBoundingClientRect().left)
+		console.log(canvas.getBoundingClientRect().top);
+	
+		//判断点击了图片的某个地方
+		canvas.onclick = function(e){
+			 //var x = e.pageX - canvas.getBoundingClientRect().left;
+        	 //var y = e.pageY - canvas.getBoundingClientRect().top;
+			 var x = e.offsetX;
+        	 var y = e.offsetY;
+			 console.log('点击坐标', 'x = ' + x , 'y = '+ y)
+			for(var i = 0; i < module.length;i++){	
+				var path = module[i].path;
+				ctx.beginPath();
+				ctx.moveTo(path[0].x*rateWidth, path[0].y*rateHeight); 
+				for(var j = 1; j < path.length; j++){
+					ctx.lineTo(path[j].x*rateWidth, path[j].y*rateHeight);
+					ctx.stroke();
+				}
+				ctx.closePath();
+				if(ctx.isPointInPath(x, y)){
+					clickCall(module[i]);
+					return;
+				}
+			}
+		};
+		
+		//点击中了选中的区域
+		function clickCall(result){
+			console.log(result.dec);
+			console.log(result.url);
+			window.open(result.url, '_self')
+		}
+
+	</script>
+</html>
